@@ -1,7 +1,6 @@
 .container {
     background-color: darkgray;
     padding: 20px;
-    max-height: 450px;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -41,4 +40,8 @@
 }
 .taken {
     background-color: chartreuse;
+}
+
+.instructions {
+    width: 250px;
 }
