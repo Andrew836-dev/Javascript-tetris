@@ -1,3 +1,9 @@
+h3 {
+    margin-left: 100px;
+}
+button {
+    margin-left: 90px;
+}
 .container {
     background-color: darkgray;
     padding: 20px;
@@ -20,7 +26,7 @@
     border-width: 10px;
     width: 200px;
     height: 400px;
-    background-color: yellow;
+    background-color: white;
     display: flex;
     flex-wrap: wrap;
 }
@@ -38,10 +44,11 @@
 .tetromino {
     background-color: blue;
 }
-.taken {
-    background-color: chartreuse;
+.takenTetromino {
+    background-color: black;
 }
 
 .instructions {
     width: 250px;
+    margin-left: 20px;
 }

@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const miniWidth = 4
     let timerId = null
     let score = 0
+    let isGameOver = true
 
     //The Tetrominoes setup
     const lTetromino = [
@@ -84,6 +85,13 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     }
 
+    function clearGrid() {
+        for(let i=0; i<200; i++){
+            squares[i].classList.remove('takenTetromino')
+            squares[i].classList.remove('taken')
+        }
+    }
+
     // make the tetromino move down every second, made obsolete by start button
     // timerId = setInterval(moveDown, 1000)
 
@@ -120,8 +128,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if(isTaken()) {
             undraw()
             currentPosition -= width
-            draw()
             current.forEach(index => squares[currentPosition + index].classList.add('taken'))
+            current.forEach(index => squares[currentPosition + index].classList.add('takenTetromino'))
             //check for game over
             if(currentPosition < 10){
                 gameOver()
@@ -130,13 +138,17 @@ document.addEventListener('DOMContentLoaded', () => {
             //check for full rows
             addScore()
             //start a new tetromino falling
-            random = nextRandom
-            nextRandom = Math.floor(Math.random()*tetrominoes.length)
-            current = tetrominoes[random][currentRotation]
-            currentPosition = 4
-            updatePreview()
-            draw()
+            updateTetromino()
         }
+    }
+
+    function updateTetromino() {
+        random = nextRandom
+        nextRandom = Math.floor(Math.random()*tetrominoes.length)
+        current = tetrominoes[random][currentRotation]
+        currentPosition = 4
+        updatePreview()
+        draw()
     }
 
     // function to move left, unless it's at the edge or there is a blockage
@@ -229,13 +241,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // controls for the start/pause button
     startBtn.addEventListener('click', () => {
-        // console.log('Click!')
+        if (isGameOver) {
+            isGameOver = false
+            score = 0
+            scoreDisplay.innerHTML = score
+            clearGrid()
+            updateTetromino()
+        }
         if (timerId){
-            // console.log('timer paused!')
             clearInterval(timerId)
             timerId = null
         } else {
-            // console.log('timer started!')
             draw()
             timerId = setInterval(moveDown, 1000)
             updatePreview()
@@ -252,7 +268,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 scoreDisplay.innerHTML = score
                 row.forEach(index=> {
                     row.forEach(index => squares[index].classList.remove('taken'))
-                    row.forEach(index => squares[index].classList.remove('tetromino'))
+                    row.forEach(index => squares[index].classList.remove('takenTetromino'))
                 })
             const squaresRemoved = squares.splice(i, width)
             squares = squaresRemoved.concat(squares)
@@ -265,6 +281,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function gameOver() {
         clearInterval(timerId)
         timerId = null
+        isGameOver = true
         scoreDisplay.innerHTML = 'Your final score was ' + scoreDisplay.innerHTML + '. Game over, Try again!'
     }
 })
