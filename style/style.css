@@ -32,16 +32,20 @@ button {
 }
 
 .grid div {
+    box-sizing: border-box;
     width: 20px;
     height: 20px;
 }
 
 .mini-grid div {
+    box-sizing: border-box;
     width: 20px;
     height: 20px;
 }
 
 .tetromino {
+    border-style: groove;
+    border-width: 1px;
     background-color: blue;
 }
 .takenTetromino {
@@ -51,4 +55,23 @@ button {
 .instructions {
     width: 250px;
     margin-left: 20px;
+}
+
+.controls {
+    display: flex;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+    width: 90px;
+    height: 60px;
+}
+.controls div {
+    width: 30px;
+    height: 30px;
+}
+
+.up, .down, .left, .right {
+    text-align: center;
+    box-sizing: border-box;
+    border-style: solid;
+    border-width: 1px;
 }

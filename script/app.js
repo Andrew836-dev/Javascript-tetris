@@ -108,19 +108,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 rotate()
             }
             else if(e.keyCode === 40){
-                moveDown()
+                drop()
             }
         }
     }
     document.addEventListener('keyup', control)
-
-    // function to move down one line
-    function moveDown() {
-        undraw()
-        currentPosition += width
-        draw()
-        freeze()
-    }
 
 
     // freeze function  
@@ -138,11 +130,11 @@ document.addEventListener('DOMContentLoaded', () => {
             //check for full rows
             addScore()
             //start a new tetromino falling
-            updateTetromino()
+            sendNextTetromino()
         }
     }
 
-    function updateTetromino() {
+    function sendNextTetromino() {
         random = nextRandom
         nextRandom = Math.floor(Math.random()*tetrominoes.length)
         current = tetrominoes[random][currentRotation]
@@ -169,6 +161,22 @@ document.addEventListener('DOMContentLoaded', () => {
             currentPosition -= 1
         }
         draw()
+    }
+
+    // function to move down one line
+    function moveDown() {
+        undraw()
+        currentPosition += width
+        draw()
+        freeze()
+    }
+
+    // function to drop all the way to the lowest possible point
+    function drop() {
+        moveDown()
+        if (currentPosition > 9) {
+            drop()
+        }
     }
 
     // for moving pieces, checks if the new position is taken. returns true if not allowed to move there
@@ -246,7 +254,7 @@ document.addEventListener('DOMContentLoaded', () => {
             score = 0
             scoreDisplay.innerHTML = score
             clearGrid()
-            updateTetromino()
+            sendNextTetromino()
         }
         if (timerId){
             clearInterval(timerId)
