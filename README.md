@@ -6,4 +6,6 @@ For example, I made a function that returns true if the tetromino is in an inval
 
 I also added functionality for the start/pause button to clear the board and start a new game if a game over state was reached.
 
-I intend to add controls for touchscreen playing and keep everything in the one small screen size to prevent accidental scrolling.
+TODO: Add color changes
+
+https://www.freecodecamp.org/news/learn-javascript-by-creating-a-tetris-game/
