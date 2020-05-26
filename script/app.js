@@ -1,11 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Initial setup to find elements in the page
     const grid = document.querySelector('.grid')
+    const upArrow = document.querySelector('#up')
+    const downArrow = document.querySelector('#down')
+    const leftArrow = document.querySelector('#left')
+    const rightArrow = document.querySelector('#right')
     let squares = Array.from(document.querySelectorAll('.grid div'))
     const scoreDisplay = document.querySelector('#score')
     const startBtn = document.querySelector('#start-button')
     const width = 10
-    const miniWidth = 4
     let timerId = null
     let score = 0
     let isGameOver = true
@@ -113,6 +116,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     document.addEventListener('keyup', control)
+    upArrow.addEventListener('touchstart', rotate)
+    downArrow.addEventListener('touchstart', drop)
+    leftArrow.addEventListener('touchstart', moveLeft)
+    rightArrow.addEventListener('touchstart', moveRight)
 
 
     // freeze function  
@@ -223,7 +230,7 @@ document.addEventListener('DOMContentLoaded', () => {
     //show up-next tetromino in mini-grid
     const displaySquares = document.querySelectorAll('.mini-grid div')
     const displayWidth = 3
-    let displayIndex = 0
+    const displayIndex = 0
 
     //the Tetrominos without rotations
     const upNextTetrominoes = [

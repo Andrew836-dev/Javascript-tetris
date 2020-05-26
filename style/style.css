@@ -1,12 +1,12 @@
-h3 {
-    margin-left: 100px;
+h1, h3 {
+    text-align: center;
+    max-width: 360px;
 }
 button {
-    margin-left: 90px;
+    margin-left: 100px;
 }
 .container {
     background-color: darkgray;
-    padding: 20px;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -62,14 +62,13 @@ button {
     flex-wrap: wrap;
     box-sizing: border-box;
     width: 90px;
-    height: 60px;
 }
 .controls div {
     width: 30px;
     height: 30px;
 }
 
-.up, .down, .left, .right {
+#up, #down, #left, #right {
     text-align: center;
     box-sizing: border-box;
     border-style: solid;
