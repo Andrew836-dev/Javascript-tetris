@@ -41,15 +41,15 @@ button {
     box-sizing: border-box;
     width: 20px;
     height: 20px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: white;
 }
 
 .tetromino {
     border-style: groove;
     border-width: 1px;
     background-color: blue;
-}
-.takenTetromino {
-    background-color: black;
 }
 
 .instructions {
