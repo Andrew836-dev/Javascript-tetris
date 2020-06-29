@@ -41,15 +41,12 @@ button {
     box-sizing: border-box;
     width: 20px;
     height: 20px;
-    border-style: solid;
-    border-width: 1px;
-    border-color: white;
 }
 
 .tetromino {
     border-style: groove;
     border-width: 1px;
-    background-color: blue;
+    /* background-color: blue; */
 }
 
 .instructions {
@@ -73,4 +70,8 @@ button {
     box-sizing: border-box;
     border-style: solid;
     border-width: 1px;
+}
+
+.game-over + .taken {
+    background-color: black!important;
 }

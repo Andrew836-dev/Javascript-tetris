@@ -5,13 +5,29 @@ document.addEventListener('DOMContentLoaded', () => {
     const downArrow = document.querySelector('#down')
     const leftArrow = document.querySelector('#left')
     const rightArrow = document.querySelector('#right')
-    let squares = Array.from(document.querySelectorAll('.grid div'))
     const scoreDisplay = document.querySelector('#score')
     const startBtn = document.querySelector('#start-button')
     const width = 10
-    let timerId = null
-    let score = 0
-    let isGameOver = true
+    var timerId = null
+    var score = 0
+    var isGameOver = true
+    
+    // create the play area
+    for (var i = 0; i < 200; i++) {
+        let gridDiv = document.createElement('div');
+        grid.appendChild(gridDiv);
+    }
+    for (var i = 0; i < 10; i++) {
+        let takenGridDiv = document.createElement('div');
+        takenGridDiv.classList.add('taken');
+        grid.appendChild(takenGridDiv);
+    }
+    for (var i = 0; i < 12; i++) {
+        let miniGridDiv = document.createElement('div');
+        document.querySelector('.mini-grid').appendChild(miniGridDiv);
+    }
+    const displaySquares = Array.from(document.querySelectorAll('.mini-grid div'))
+    let squares = Array.from(document.querySelectorAll('.grid div'))
 
     //The Tetrominoes setup
     const lTetromino = {
@@ -113,7 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function clearGrid() {
         for (let i = 0; i < 200; i++) {
-            squares[i].classList.remove('taken')
+            squares[i].classList.remove('taken', 'tetromino')
             squares[i].style.backgroundColor = ''
         }
     }
@@ -148,7 +164,9 @@ document.addEventListener('DOMContentLoaded', () => {
     function freeze() {
         if (isTaken()) {
             // undraw()
-            currentPosition -= width
+            if (currentPosition > 10) {
+                currentPosition -= width
+            }
             currentTetromino.rotation[currentRotation].forEach(index => squares[currentPosition + index].classList.add('taken'))
             currentTetromino.rotation[currentRotation].forEach(index => squares[currentPosition + index].style.backgroundColor = currentTetromino.color)
             //check for game over
@@ -178,10 +196,10 @@ document.addEventListener('DOMContentLoaded', () => {
     function moveLeft() {
         if (timerId) {
             undraw()
-            if (!isAtLeft()) currentPosition -= 1
-            if (isTaken()) {
+            if (!isAtLeft())
+                currentPosition -= 1
+            if (isTaken())
                 currentPosition += 1
-            }
             draw()
         }
     }
@@ -224,13 +242,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // checks if the part is at the left hand edge of the grid
     function isAtLeft() {
-        const isAtLeftEdge = currentTetromino.rotation[currentRotation].some(index => (currentPosition + index) % width === 0)
+        var isAtLeftEdge = currentTetromino.rotation[currentRotation].some(index => (currentPosition + index) % width === 0)
         return isAtLeftEdge
     }
 
     // checks if the part is at the right hand edge of the grid
     function isAtRight() {
-        const isAtRightEdge = currentTetromino.rotation[currentRotation].some(index => (currentPosition + index) % width === width - 1)
+        var isAtRightEdge = currentTetromino.rotation[currentRotation].some(index => (currentPosition + index) % width === width - 1)
         return isAtRightEdge
     }
 
@@ -256,7 +274,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     //show up-next tetromino in mini-grid
-    const displaySquares = document.querySelectorAll('.mini-grid div')
     const displayWidth = 3
     const displayIndex = 0
 
@@ -328,5 +345,9 @@ document.addEventListener('DOMContentLoaded', () => {
         timerId = null
         isGameOver = true
         scoreDisplay.innerHTML = 'Your final score was ' + scoreDisplay.innerHTML + '. Game over, Try again!'
+        for (let i = 0; i < 199; i++) {
+            squares[i].classList.add('game-over')
+            // squares[i].style.backgroundColor = 'black'
+        }
     }
 })
